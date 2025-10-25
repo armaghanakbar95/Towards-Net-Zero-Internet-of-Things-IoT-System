@@ -1,0 +1,113 @@
+import pmt
+from gnuradio import gr
+import requests
+
+class blk(gr.basic_block):
+# Initialize message Block
+    def __init__(self):
+        gr.basic_block.__init__(
+            self,
+            name="LoRa Packet Receiver",
+            in_sig=[],
+            out_sig=[]
+        )
+
+        self.message_port_register_in(pmt.intern("in"))
+        self.set_msg_handler(pmt.intern("in"), self.handle_msg)
+
+        # Store individual sensor values
+        self.node_a_temp = None
+        self.node_a_hum = None
+        self.node_a_light = None
+        self.node_b_temp = None
+        self.node_b_hum = None
+        self.node_b_light = None
+
+        #  Blynk Auth Token (from your device)
+        self.blynk_token = "cgL9iQhWNuOrEtfenZVA1bhh0Qa1IVqi"  # Replace token here
+
+    def handle_msg(self, msg):
+        print(">>> Python block received something!")
+
+        try:
+            decoded = pmt.symbol_to_string(msg).strip()
+            print(f"[LoRa Rx] Raw: {decoded}")
+		
+		#split string into small parts
+            parts = decoded.split()
+            i = 0
+            while i < len(parts) - 1:
+                if parts[i].endswith(":"):
+                    key = parts[i][:-1]
+                    val_str = parts[i + 1]
+
+                    try:
+                        val = float(val_str)
+
+                        if key == "NAT":	#node A Temperature
+                            self.node_a_temp = val
+                            print(f"[Node A] Temp: {val}")
+                        elif key == "NAH":	#node A Humidity
+                            self.node_a_hum = val
+                            print(f"[Node A] Hum: {val}")
+                        elif key == "NAL":	#node A Light
+                            self.node_a_light = val
+                            print(f"[Node A] Light: {val}")
+                        elif key == "NBT":	#node B Temperature
+                            self.node_b_temp = val
+                            print(f"[Node B] Temp: {val}")
+                        elif key == "NBH":	#node B Humidity
+                            self.node_b_hum = val	
+                            print(f"[Node B] Hum: {val}")
+                        elif key == "NBL":	#node B Light
+                            self.node_b_light = val
+                            print(f"[Node B] Light: {val}")
+                        else:
+                            print(f"[LoRa Rx] Unknown key: {key}")
+
+                    except ValueError:
+                        print(f"[LoRa Rx] Invalid value for {key}: {val_str}")
+                    i += 2
+                else:
+                    print(f"[LoRa Rx] Unexpected token: {parts[i]}")
+                    i += 1
+
+            # Send to Blynk only when all values are ready
+            if all(v is not None for v in [
+                self.node_a_temp, self.node_a_hum, self.node_a_light,
+                self.node_b_temp, self.node_b_hum, self.node_b_light]):
+
+                print("[Blynk] Sending all values...")
+
+                base_url = "https://blynk.cloud/external/api/update"
+                params = [
+                    ("v0", self.node_a_temp),
+                    ("v1", self.node_a_hum),
+                    ("v2", self.node_a_light),
+                    ("v3", self.node_b_temp),
+                    ("v4", self.node_b_hum),
+                    ("v5", self.node_b_light),
+                ]
+
+                for pin, val in params:
+                    try:
+                        url = f"{base_url}?token={self.blynk_token}&{pin}={val}"
+                        res = requests.get(url, timeout=5)
+                        if res.status_code == 200:
+                            print(f"[Blynk] ✅ Sent {pin} = {val}")
+                        else:
+                            print(f"[Blynk]  Failed to send {pin}, status {res.status_code}")
+                    except Exception as e:
+                        print(f"[Blynk]  Error sending {pin}: {e}")
+
+                # Clear stored values after sending
+                self.node_a_temp = None
+                self.node_a_hum = None
+                self.node_a_light = None
+                self.node_b_temp = None
+                self.node_b_hum = None
+                self.node_b_light = None
+
+        except Exception as e:
+            print(f"[LoRa Rx]  Error: {e}")
+
