@@ -1,1 +1,234 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project | Towards Net Zero IoT System</title>
+
+  <style>
+    :root {
+      --primary: #0077b6;
+      --secondary: #0096c7;
+      --bg: #f9f9fb;
+      --text: #222;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    header a:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      color: var(--secondary);
+      border-left: 4px solid var(--secondary);
+      padding-left: 10px;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: disc;
+      padding-left: 2rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 2rem;    /* space between rows */
+  column-gap: 1rem; /* space between columns */
+    }
+
+    .gallery img {
+  width: 100%;
+  height: 100%; /* fixed height for all images */
+      border: 2px solid black;
+  object-fit: contain; /* makes image cover the space without distortion */
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  box-shadow: var(--shadow);
+}
+    .gallery figcaption {
+  text-align: center;      /* center horizontally */
+  font-size: 1rem;
+  color: #333;
+      font-weight: bold;
+}
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      margin: 2rem 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h3>🌱 Towards Net Zero IoT System</h3>
+    <a href="https://armaghanakbar95.github.io/armaghan_abbasi/">← Back to Home</a>
+  </header>
+
+  <main>
+    <h1>Towards Net Zero Internet of Things (IoT) System</h1>
+
+    <section id="description">
+      <h2>📘 Project Overview</h2>
+      <p>
+        Internet of Things come up as game-changing topic following which the real-time monitoring, automation, and data-based decisions in even various industries like agriculture,manufacturing, environmental management, and smart cities can be achieved. IoT systems enable a smooth connection between the physical and the digital world by interconnecting sensors, wireless transmission, and cloud- based analytics. But as development of these systems is spreading at a very high pace, there is a growing demand to assure that the solutions of IoT are not only intelligent and scalable but also energy-efficient and environment friendly.
+Due to the international initiatives towards the minimization of carbon emissions and shifting towards the net-zero power consumption, developing low-power, the long range IoT systems has become a priority. The environmental or industrial monitoring apps used remotely, including air quality monitoring, water resource management, or machinery diagnostics often have to deploy sensors to the places where the reliable power infrastructure is unavailable. Therefore, it has to be a solution that is going to be low-powered, wide-area coverage communication, and also needs to be cloud integrated to get the data and also the decision process as well.
+      </p>
+    </section>
+
+    <section id="objectives">
+      <h2>🎯 Objectives</h2>
+      <ul>
+        <li>Real time Monitoring System.</li>
+        <li>Long Range, Low Power Communication.</li>
+        <li>Cloud Integration for Data Analytics and Visualization.</li>
+        <li>Evaluate and Optimize Network Performance.</li>
+        <li>Support Scalable System Expansion.</li>
+      </ul>
+    </section>
+
+    <section id="technology">
+      <h2>💻 Technologies Used</h2>
+      <h3>🌐 Core Communication Technology</h3>
+    <ul>
+      <li><strong>LoRa (Long Range Radio Communication):</strong> Provides low-power, long-range data transmission.</li>
+      <li>Operates on <strong>868/915 MHz ISM bands</strong> with Chirp Spread Spectrum (CSS) modulation.</li>
+      <li>Enables reliable IoT communication over several kilometres.</li>
+      <li>Used for connecting sensor nodes to the <strong>USRP B210 gateway</strong>.</li>
+    </ul>
+
+
+  
+    <h3>🔩 Hardware Components</h3>
+    <ul>
+      <li><strong>USRP B210 (Software Defined Radio):</strong> Acts as LoRa receiver; supports 70 MHz–6 GHz range with full-duplex 2×2 MIMO.</li>
+      <li><strong>LILYGO TTGO LoRa32 (ESP32 + SX1276):</strong> Sensor node with Wi-Fi, Bluetooth, OLED display, and battery circuit.</li>
+      <li><strong>Sensors:</strong> 
+        <ul>
+          <li>DHT11 – Measures temperature (0–50 °C) & humidity (20–90 % RH).</li>
+          <li>LDR – Detects ambient light using LM393 comparator.</li>
+        </ul>
+      </li>
+    </ul>
+
+  
+    <h3>💾 Software & Tools</h3>
+    <ul>
+      <li><strong>Arduino IDE:</strong> For programming ESP32 firmware in C/C++.</li>
+      <li><strong>GNU Radio (gr-lora_sdr):</strong> For LoRa signal decoding and SDR processing.</li>
+      <li><strong>Python:</strong> Handles data forwarding and cloud integration.</li>
+      <li><strong>Cloud Platforms:</strong>
+        <ul>
+          <li><strong>ThingSpeak:</strong> Real-time data logging, trend analysis, MATLAB analytics.</li>
+          <li><strong>Blynk:</strong> Mobile dashboard with live widgets and push notifications.</li>
+        </ul>
+      </li>
+    </ul>
+</section>
+
+
+    <section id="gallery">
+      <h2>🖼️ Project Gallery</h2>
+      <div class="gallery">
+        <figure>
+        <img src="https://raw.githubusercontent.com/armaghanakbar95/Towards-Net-Zero-Internet-of-Things-IoT-System/refs/heads/main/Sensor%20Node.png" alt="IoT setup image 1" />
+        <figcaption>Sensor Node</figcaption>
+        </figure>
+
+         <figure>
+          <img src="https://raw.githubusercontent.com/armaghanakbar95/Towards-Net-Zero-Internet-of-Things-IoT-System/refs/heads/main/USRP.png" alt="Sensors used" />
+        <figcaption>USRP B210</figcaption>
+        </figure>
+
+        <figure>
+        <img src="https://raw.githubusercontent.com/armaghanakbar95/Towards-Net-Zero-Internet-of-Things-IoT-System/refs/heads/main/GNU%20Radio%20Flow%20Graph%20for%20Packet%20Reception.png" alt="Dashboard" />
+        <figcaption>GNU Radio Flow Graph for Packet Reception</figcaption>
+        </figure>
+
+          <figure>
+          <img src="https://raw.githubusercontent.com/armaghanakbar95/Towards-Net-Zero-Internet-of-Things-IoT-System/refs/heads/main/ThingSpeak%20Output.png" alt="Sensors used" />
+         <figcaption>ThingSpeak Output</figcaption>
+        </figure>
+
+          <figure>  
+          <img src="https://raw.githubusercontent.com/armaghanakbar95/Towards-Net-Zero-Internet-of-Things-IoT-System/refs/heads/main/Blynk%20Output.png" alt="Sensors used" />
+          <figcaption>Blynk Output</figcaption>
+        </figure>
+     
+      </div>
+    </section>
+
+    <section id="links">
+      <h2>🔗 Links</h2>
+      <p>
+        <a href="https://github.com/armaghanakbar95/Towards-Net-Zero-Internet-of-Things-IoT-System" target="_blank">View Source on GitHub</a>
+      </p>
+    </section>
+  </main>
+
+
+
+</body>
+</html>
